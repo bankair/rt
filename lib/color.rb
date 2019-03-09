@@ -31,7 +31,17 @@ class Color
     )
   end
 
-  def *(scalar)
+  def *(scalar_or_color)
+    scalar_or_color.is_a?(self.class) ? mult_color(scalar_or_color) : mult_scalar(scalar_or_color)
+  end
+
+  private
+
+  def mult_scalar(scalar)
     self.class.new(red * scalar, green * scalar, blue * scalar)
+  end
+
+  def mult_color(color)
+    self.class.new(red * color.red, green * color.green, blue * color.blue)
   end
 end
