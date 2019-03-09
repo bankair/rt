@@ -1,12 +1,14 @@
 # Represent a color
 class Color
-  attr_accessor :red, :green, :blue
+  attr_reader :red, :green, :blue
 
   def initialize(red, green, blue)
-    self.red = red
-    self.green = green
-    self.blue = blue
+    @red = red.to_f
+    @green = green.to_f
+    @blue = blue.to_f
   end
+
+  BLACK = Color.new(0, 0, 0).freeze
 
   def ==(other)
     return false unless other.is_a?(self.class)
@@ -24,11 +26,7 @@ class Color
   end
 
   def -(other)
-    self.class.new(
-      red - other.red,
-      green - other.green,
-      blue - other.blue
-    )
+    self.class.new(red - other.red, green - other.green, blue - other.blue)
   end
 
   def *(scalar_or_color)
