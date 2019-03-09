@@ -1,6 +1,15 @@
 require 'tuple'
 require 'canvas'
-require 'environment'
+
+# Represent the environment
+class Environment
+  attr_accessor :gravity, :wind
+
+  def initialize(gravity, wind)
+    self.gravity = gravity
+    self.wind = wind
+  end
+end
 
 # Represent a projectile
 class Projectile
@@ -47,3 +56,5 @@ class Projectile
     system('open projectile_test.ppm')
   end
 end
+
+Projectile.test
