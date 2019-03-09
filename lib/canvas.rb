@@ -75,6 +75,6 @@ class Canvas
 
   def to_array_index(x, y)
     raise OutOfBoundError unless (0...width).cover?(x) && (0...height).cover?(y)
-    y * width + x
+    y.round * width + x.round
   end
 end
