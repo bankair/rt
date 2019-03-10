@@ -1,4 +1,6 @@
 require 'intersection'
+require 'tuple'
+require 'rtmatrix'
 
 class Sphere
   attr_reader :position, :radius
