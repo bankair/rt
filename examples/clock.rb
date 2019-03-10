@@ -27,16 +27,3 @@ class Clock
 end
 
 Clock.new.draw
-
-# c[25 + 200 * p.x, 250 + 200 * p.y]
-
-# begin
-#   12.times do
-#     puts p.inspect
-#     c[250 + p.x, 250 + p.y] = blue
-#     p = t * p
-#   end
-# rescue StandardError => e
-#   puts e.message
-# end
-
