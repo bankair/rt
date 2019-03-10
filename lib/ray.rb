@@ -9,4 +9,8 @@ class Ray
   def position(time)
     origin + direction * time
   end
+
+  def transform(matrix)
+    Ray.new(matrix * origin, matrix * direction)
+  end
 end
