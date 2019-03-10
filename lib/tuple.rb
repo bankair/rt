@@ -20,6 +20,10 @@ class Tuple
     end
   end
 
+  module Point
+    ORIGIN = Tuple.point(0.0, 0.0, 0.0).freeze
+  end
+
   def point?
     w == 1.0
   end
