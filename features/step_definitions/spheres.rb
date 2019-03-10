@@ -35,3 +35,11 @@ end
 Then("s.transform = t") do
   expect(@s.transform).to eq @t
 end
+
+When("set_transform s, scaling {int}, {int}, {int}") do |int, int2, int3|
+  @s.transform = Transformation.scaling(int, int2, int3)
+end
+
+When("set_transform s, translation {int}, {int}, {int}") do |int, int2, int3|
+  @s.transform = Transformation.translation(int, int2, int3)
+end

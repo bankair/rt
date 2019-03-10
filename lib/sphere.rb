@@ -11,9 +11,10 @@ class Sphere
   end
 
   def intersect(ray)
+    ray = ray.transform(transform.inverse)
     sphere_to_ray = ray.origin - Tuple::Point::ORIGIN
     a = ray.direction.dot(ray.direction)
-    b = 2 * ray.direction.dot(sphere_to_ray)
+    b = 2.0 * ray.direction.dot(sphere_to_ray)
     c = sphere_to_ray.dot(sphere_to_ray) - 1
     discriminant = b ** 2 - 4 * a * c
     return Intersection::Collection::EMPTY if discriminant < 0
