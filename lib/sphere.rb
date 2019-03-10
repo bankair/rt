@@ -2,10 +2,12 @@ require 'intersection'
 
 class Sphere
   attr_reader :position, :radius
+  attr_accessor :transform
 
-  def initialize(position: Tuple::Point::ORIGIN, radius: 1)
+  def initialize(position: Tuple::Point::ORIGIN, radius: 1, transform: RTMatrix::IDENTITY)
     @position = position
     @radius = radius
+    @transform = transform
   end
 
   def intersect(ray)

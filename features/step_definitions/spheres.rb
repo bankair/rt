@@ -19,3 +19,19 @@ end
 Then("xs[{int}].object = s") do |int|
   expect(@xs[int].object).to be(@s)
 end
+
+Then("s.transform = identity_matrix") do
+  expect(@s.transform).to eq(RTMatrix::IDENTITY)
+end
+
+Given("t ← translation {int}, {int}, {int}") do |int, int2, int3|
+  @t = Transformation.translation(int, int2, int3)
+end
+
+When("set_transform s, t") do
+  @s.transform = @t
+end
+
+Then("s.transform = t") do
+  expect(@s.transform).to eq @t
+end

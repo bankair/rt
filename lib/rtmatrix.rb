@@ -2,6 +2,13 @@ require 'matrix'
 require 'tuple'
 
 class RTMatrix < Matrix
+  IDENTITY = RTMatrix[
+    [1,0,0,0],
+    [0,1,0,0],
+    [0,0,1,0],
+    [0,0,0,1],
+  ].freeze
+
   def *(other)
     if other.is_a?(Tuple)
       (self * Matrix[[other.x], [other.y], [other.z], [other.w]]).to_tuple
