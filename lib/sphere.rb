@@ -1,15 +1,22 @@
 require 'intersection'
 require 'tuple'
 require 'rtmatrix'
+require 'material'
 
 class Sphere
   attr_reader :position, :radius
-  attr_accessor :transform
+  attr_accessor :transform, :material
 
-  def initialize(position: Tuple::Point::ORIGIN, radius: 1, transform: RTMatrix::IDENTITY)
+  def initialize(
+    position: Tuple::Point::ORIGIN,
+    radius: 1,
+    transform: RTMatrix::IDENTITY,
+    material: Material.new
+  )
     @position = position
     @radius = radius
     @transform = transform
+    @material = material
   end
 
   def intersect(ray)

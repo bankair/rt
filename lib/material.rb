@@ -5,7 +5,8 @@ class Material
   DEFAULT_SPECULAR = 0.9
   DEFAULT_SHININESS = 200.0
 
-  attr_reader :color, :ambient, :diffuse, :specular, :shininess
+  attr_reader :color, :diffuse, :specular, :shininess
+  attr_accessor :ambient
 
   def initialize(
     color: DEFAULT_COLOR,
@@ -19,5 +20,13 @@ class Material
     @diffuse = diffuse
     @specular = specular
     @shininess = shininess
+  end
+
+  def ==(other)
+    color == other.color &&
+      ambient == other.ambient &&
+      diffuse == other.diffuse &&
+      specular == other.specular &&
+      shininess == other.shininess
   end
 end

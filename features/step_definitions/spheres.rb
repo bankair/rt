@@ -71,3 +71,23 @@ end
 Given("set_transform s, m") do
   @s.transform = @m
 end
+
+When("m ← s.material") do
+  @m = @s.material
+end
+
+Then("m = material") do
+  expect(@m).to eq(Material.new)
+end
+
+Given("m.ambient ← {int}") do |int|
+  @m.ambient = int
+end
+
+When("s.material ← m") do
+  @s.material = @m
+end
+
+Then("s.material = m") do
+  expect(@s.material).to eq(@m)
+end
