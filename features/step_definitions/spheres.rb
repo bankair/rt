@@ -57,3 +57,17 @@ end
 Then("n = normalize n") do
   expect(@n).to eq(@n.normalize)
 end
+
+Given("set_transform s, translation {float}, {float}, {float}") do |float, float2, float3|
+  @s.transform = Transformation.translation(float, float2, float3)
+end
+
+Given("m ← scaling {float}, {float}, {float} * rotation_z π div {int}") do |float, float2, float3, int|
+  @m =
+    Transformation.scaling(float, float2, float3) *
+    Transformation.rotation_z(Math::PI / int)
+end
+
+Given("set_transform s, m") do
+  @s.transform = @m
+end
