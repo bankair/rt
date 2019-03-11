@@ -26,4 +26,8 @@ class Sphere
       Intersection.new((-b + sqrt_discriminant) / (2 * a), self)
     ]
   end
+
+  def normal_at(point)
+    (point - position).normalize
+  end
 end
