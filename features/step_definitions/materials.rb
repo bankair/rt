@@ -23,3 +23,28 @@ end
 Then("m.shininess = {float}") do |float|
   expect(@m.shininess).to eq(float)
 end
+
+Given("eyev ← vector {float}, {float}, {float}") do |float, float2, float3|
+  @eyev = Tuple.vector(float, float2, float3)
+end
+
+Given("normalv ← vector {float}, {float}, {float}") do |float, float2, float3|
+  @normalv = Tuple.vector(float, float2, float3)
+end
+
+Given("light ← point_light point {int}, {int}, {int}, color {int}, {int}, {int}") do |int, int2, int3, int4, int5, int6|
+  @light = Light::Point.new(
+    Tuple.point(int, int2, int3),
+    Color.new(int4, int5, int6)
+  )
+end
+
+When("result ← lighting m, light, position, eyev, normalv") do
+  @result = @m.lighting(@light, @position, @eyev, @normalv)
+end
+
+Then("result = color {float}, {float}, {float}") do |float, float2, float3|
+  expect(@result.red).to be_within(0.001).of(float)
+  expect(@result.green).to be_within(0.001).of(float2)
+  expect(@result.blue).to be_within(0.001).of(float3)
+end
