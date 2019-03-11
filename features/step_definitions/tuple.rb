@@ -135,3 +135,17 @@ end
 Then("cross v{int}, v{int} = vector {int}, {int}, {int}") do |int, int2, int3, int4, int5|
   expect(@v[int].cross(@v[int2])).to eq(Tuple.vector(int3, int4, int5))
 end
+
+Given("n ← vector {float}, {float}, {float}") do |float, float2, float3|
+  @n = Tuple.vector(float, float2, float3)
+end
+
+When("r ← reflect v, n") do
+  @r = @v.reflect(@n)
+end
+
+Then("r = vector {int}, {int}, {int}") do |int, int2, int3|
+  expect(@r.x).to be_within(0.0001).of(int)
+  expect(@r.y).to be_within(0.0001).of(int2)
+  expect(@r.z).to be_within(0.0001).of(int3)
+end

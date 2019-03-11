@@ -82,5 +82,9 @@ class Tuple
       x * other.y - y * other.x
     )
   end
+
+  def reflect(normal)
+    self - normal * 2.0 * dot(normal)
+  end
   # rubocop:enable Naming/UncommunicativeMethodParamName
 end
