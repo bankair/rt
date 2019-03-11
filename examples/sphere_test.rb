@@ -1,6 +1,7 @@
 require 'canvas'
 require 'sphere'
 require 'ray'
+require 'transformation'
 
 class SphereTest
   attr_reader :canvas, :sphere
@@ -10,7 +11,6 @@ class SphereTest
   HALF = WALL_SIZE / 2
   CANVAS_PIXELS = 100
   PIXEL_SIZE = WALL_SIZE / CANVAS_PIXELS
-  COLOR = Color.new(1, 0, 0)
 
   def initialize
     @canvas = Canvas.new(CANVAS_PIXELS, CANVAS_PIXELS)
@@ -18,6 +18,7 @@ class SphereTest
   end
 
   def run
+    sphere.transform = Transformation.shearing(1, 0, 0, 0, 0, 0) * Transformation.scaling(0.5, 1, 1)
     ray_origin = Tuple.point(0, 0, -5)
     (0...CANVAS_PIXELS).each do |y|
       world_y = HALF - PIXEL_SIZE * y
@@ -27,7 +28,8 @@ class SphereTest
         r = Ray.new(ray_origin, (position - ray_origin).normalize)
         xs = sphere.intersect(r)
         hit = xs.hit
-        canvas[x, y] = Color.new(rand, rand, rand) if hit
+        next unless hit
+        canvas[x, y] = Color.new(1 - (hit.t - 4), 0, 0)
       end
     end
     File.write('sphere_test.ppm', canvas.to_ppm)
