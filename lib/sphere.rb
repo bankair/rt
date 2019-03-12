@@ -15,7 +15,7 @@ class Sphere
     world: World.default
   )
     @position = position
-    @radius = radius
+    @radius = radius.to_f
     @transform = transform
     @material = material
     world.objects << self
