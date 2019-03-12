@@ -39,3 +39,43 @@ end
 Given("xs ← intersections i{int}, i{int}, i{int}, i{int}") do |int, int2, int3, int4|
   @xs = Intersection[@i[int], @i[int2], @i[int3], @i[int4]]
 end
+
+Given("shape ← sphere") do
+  @shape = Sphere.new
+end
+
+Given("i ← intersection {int}, shape") do |int|
+  @i = Intersection.new(int, @shape)
+end
+
+When("comps ← prepare_computations i, r") do
+  @comps = @i.prepare_computations(@r)
+end
+
+Then("comps.t = i.t") do
+  expect(@comps.t).to eq(@i.t)
+end
+
+Then("comps.object = i.object") do
+  expect(@comps.object).to eq(@i.object)
+end
+
+Then("comps.point = point {int}, {int}, {int}") do |int, int2, int3|
+  expect(@comps.point).to eq(Tuple.point(int, int2, int3))
+end
+
+Then("comps.eyev = vector {int}, {int}, {int}") do |int, int2, int3|
+  expect(@comps.eyev).to eq(Tuple.vector(int, int2, int3))
+end
+
+Then("comps.normalv = vector {int}, {int}, {int}") do |int, int2, int3|
+  expect(@comps.normalv).to eq(Tuple.vector(int, int2, int3))
+end
+
+Then("comps.inside = false") do
+  expect(@comps.inside).to be(false)
+end
+
+Then("comps.inside = true") do
+  expect(@comps.inside).to be(true)
+end
