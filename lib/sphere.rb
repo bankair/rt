@@ -11,12 +11,14 @@ class Sphere
     position: Tuple::Point::ORIGIN,
     radius: 1,
     transform: RTMatrix::IDENTITY,
-    material: Material.new
+    material: Material.new,
+    world: World.default
   )
     @position = position
     @radius = radius
     @transform = transform
     @material = material
+    world.objects << self
   end
 
   def intersect(ray)

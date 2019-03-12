@@ -5,8 +5,7 @@ class Material
   DEFAULT_SPECULAR = 0.9
   DEFAULT_SHININESS = 200.0
 
-  attr_reader :color, :diffuse, :specular, :shininess
-  attr_accessor :ambient
+  attr_accessor :ambient, :color, :diffuse, :specular, :shininess
 
   def initialize(
     color: DEFAULT_COLOR,
