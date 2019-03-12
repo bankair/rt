@@ -1,5 +1,4 @@
 # Standard tuple (point and vector) class
-require 'byebug'
 class Tuple
   # rubocop:disable Naming/UncommunicativeMethodParamName
   attr_accessor :x, :y, :z, :w

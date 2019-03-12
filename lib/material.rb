@@ -30,14 +30,11 @@ class Material
       shininess == other.shininess
   end
 
-  require 'byebug'
-
   def lighting(light, point, eyev, normalv)
     effective_color = color * light.intensity
     lightv = (light.position - point).normalize
     ambient_color = effective_color * ambient
     light_dot_normal = lightv.dot(normalv)
-    byebug if $debug
     if light_dot_normal < 0
       diffuse_color = Color::BLACK
       specular_color = Color::BLACK
