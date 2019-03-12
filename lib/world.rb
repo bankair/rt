@@ -16,4 +16,8 @@ class World
     result.sort_by!(&:t)
     result
   end
+
+  def shade_hit(comps)
+    comps.object.material.lighting(light, comps.point, comps.eyev, comps.normalv)
+  end
 end

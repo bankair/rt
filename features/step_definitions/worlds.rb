@@ -55,3 +55,32 @@ end
 When("xs ← intersect_world w, r") do
   @xs = @w.intersect(@r)
 end
+
+Given("shape ← the first object in w") do
+  @shape = @w.objects.first
+end
+
+When("c ← shade_hit w, comps") do
+  @c = @w.shade_hit(@comps)
+end
+
+Then("c = color {float}, {float}, {float}") do |float, float2, float3|
+  expect(@c.red).to be_within(0.0001).of(float)
+  expect(@c.green).to be_within(0.0001).of(float2)
+  expect(@c.blue).to be_within(0.0001).of(float3)
+end
+
+Given("w.light ← point_light point {float}, {float}, {float}, color {float}, {float}, {float}") do |float, float2, float3, float4, float5, float6|
+  @w.light = Light::Point.new(
+    Tuple.point(float, float2, float3),
+    Color.new(float4, float5, float6)
+  )
+end
+
+Given("shape ← the second object in w") do
+  @shape = @w.objects[1]
+end
+
+Given("i ← intersection {float}, shape") do |float|
+  @i = Intersection.new(float, @shape)
+end
