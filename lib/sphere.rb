@@ -2,6 +2,7 @@ require 'intersection'
 require 'tuple'
 require 'rtmatrix'
 require 'material'
+require 'world'
 
 class Sphere
   attr_reader :position, :radius
