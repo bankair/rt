@@ -2,6 +2,19 @@ require 'rtmatrix'
 
 class Transformation
   class << self
+    def view_transform(from, to, up)
+      forward = (to - from).normalize
+      left = forward.cross(up.normalize)
+      true_up = left.cross(forward)
+      orientation = RTMatrix[
+        [left.x, left.y, left.z, 0],
+        [true_up.x, true_up.y, true_up.z, 0],
+        [-forward.x, -forward.y, -forward.z, 0],
+        [0, 0, 0, 1]
+      ]
+      orientation * translation(-from.x, -from.y, -from.z)
+    end
+
     def translation(x, y, z)
       RTMatrix[
         [1, 0, 0, x],

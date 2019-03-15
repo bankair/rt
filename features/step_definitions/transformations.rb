@@ -91,3 +91,39 @@ end
 When("transform ← t{int} * t{int} * t{int}") do |int, int2, int3|
   @transform = @t[int] * @t[int2] * @t[int3]
 end
+
+Given("from ← point {int}, {int}, {int}") do |int, int2, int3|
+  @from = Tuple.point(int, int2, int3)
+end
+
+Given("to ← point {int}, {int}, {int}") do |int, int2, int3|
+  @to = Tuple.point(int, int2, int3)
+end
+
+Given("up ← vector {int}, {int}, {int}") do |int, int2, int3|
+  @up = Tuple.vector(int, int2, int3)
+end
+
+When("t ← view_transform from, to, up") do
+  @t = Transformation.view_transform(@from, @to, @up)
+end
+
+Then("t = identity_matrix") do
+  expect(@t).to eq(RTMatrix.identity(4))
+end
+
+Then("t = scaling {int}, {int}, {int}") do |int, int2, int3|
+  expect(@t).to eq(Transformation.scaling(int, int2, int3))
+end
+
+Then("t = translation {int}, {int}, {int}") do |int, int2, int3|
+  expect(@t).to eq(Transformation.translation(int, int2, int3))
+end
+
+Then("t is the following {int}x{int} matrix:") do |int, int2, table|
+  table.raw.each_with_index do |row, x|
+    row.each_with_index do |expected_value, y|
+      expect(@t[x, y]).to be_within(0.0001).of(expected_value.to_f)
+    end
+  end
+end
