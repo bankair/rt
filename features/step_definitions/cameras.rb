@@ -74,3 +74,21 @@ Then("r.direction = vector {float}, {int}, {float}") do |float, int, float2|
   expect(@r.direction.y).to be_within(0.0001).of(int)
   expect(@r.direction.z).to be_within(0.0001).of(float2)
 end
+
+Given("c.transform ← view_transform from, to, up") do
+  @c.transform = Transformation.view_transform(@from, @to, @up)
+end
+
+When("image ← render c, w") do
+  @image = @c.render(@w)
+end
+
+Then("pixel_at image, {int}, {int} = color {float}, {float}, {float}") do |int, int2, float, float2, float3|
+  expect(@image[int, int2].red).to be_within(0.0001).of(float)
+  expect(@image[int, int2].green).to be_within(0.0001).of(float2)
+  expect(@image[int, int2].blue).to be_within(0.0001).of(float3)
+end
+
+Given("w.light ← light") do
+  @w.light = @light
+end

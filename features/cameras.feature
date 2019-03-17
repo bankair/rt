@@ -36,3 +36,22 @@ Feature: Camera
     And r ← ray_for_pixel c, 100, 50
     Then r.origin = point 0, 2, -5
     And r.direction = vector 0.70711, 0, -0.70711
+
+
+  Scenario: Rendering a world with a camera
+    Given w ← default_world
+    And light ← point_light point -10, 10, -10, color 1, 1, 1
+    And w.light ← light
+    And s1 ← sphere with:
+      | material.color |  0.8, 1.0, 0.6 |
+      | material.diffuse | 0.7 |
+      | material.specular | 0.2 |
+    And s2 ← sphere with:
+      | transform | scaling 0.5, 0.5, 0.5 |
+    And c ← camera 11, 11, π div 2
+    And from ← point 0, 0, -5
+    And to ← point 0, 0, 0
+    And up ← vector 0, 1, 0
+    And c.transform ← view_transform from, to, up
+    When image ← render c, w
+    Then pixel_at image, 5, 5 = color 0.38066, 0.47583, 0.2855

@@ -1,4 +1,7 @@
 require 'rtmatrix'
+require 'canvas'
+
+# Allow camera manipulation and rendering
 class Camera
   NO_TRANSFORMATION = RTMatrix.identity(4)
   attr_reader :hsize, :vsize, :field_of_view
@@ -31,5 +34,15 @@ class Camera
     origin = transform.inverse * Tuple.point(0.0, 0.0, 0.0)
     direction = (pixel - origin).normalize
     return Ray.new(origin, direction)
+  end
+
+  def render(world)
+    image = Canvas.new(hsize, vsize)
+    (0...vsize).each do |y|
+      (0...hsize).each do |x|
+        image[x, y] = world.color_at(ray_for_pixel(x, y))
+      end
+    end
+    image
   end
 end
