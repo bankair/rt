@@ -39,3 +39,38 @@ end
 Then("c.pixel_size = {float}") do |float|
   expect(@c.pixel_size).to be_within(0.00001).of(float)
 end
+
+When("r ← ray_for_pixel c, {int}, {int}") do |int, int2|
+  @r = @c.ray_for_pixel(int, int2)
+end
+
+Then("r.origin = point {int}, {int}, {int}") do |int, int2, int3|
+  expect(@r.origin).to eq(Tuple.point(int, int2, int3))
+end
+
+Then("r.direction = vector {int}, {int}, {int}") do |int, int2, int3|
+  expect(@r.direction).to be_vector
+  expect(@r.direction.x).to be_within(0.0001).of(int)
+  expect(@r.direction.y).to be_within(0.0001).of(int2)
+  expect(@r.direction.z).to be_within(0.0001).of(int3)
+end
+
+Then("r.direction = vector {float}, {float}, {float}") do |float, float2, float3|
+  expect(@r.direction).to be_vector
+  expect(@r.direction.x).to be_within(0.0001).of(float)
+  expect(@r.direction.y).to be_within(0.0001).of(float2)
+  expect(@r.direction.z).to be_within(0.0001).of(float3)
+end
+
+When("c.transform ← rotation_y π div {int} * translation {int}, {int}, {int}") do |int, int2, int3, int4|
+  @c.transform =
+    Transformation.rotation_y(Math::PI / int) *
+    Transformation.translation(int2, int3, int4)
+end
+
+Then("r.direction = vector {float}, {int}, {float}") do |float, int, float2|
+  expect(@r.direction).to be_vector
+  expect(@r.direction.x).to be_within(0.0001).of(float)
+  expect(@r.direction.y).to be_within(0.0001).of(int)
+  expect(@r.direction.z).to be_within(0.0001).of(float2)
+end
