@@ -1,3 +1,5 @@
+require 'color'
+
 class Material
   DEFAULT_COLOR = Color.new(1, 1, 1).freeze
   DEFAULT_AMBIENT = 0.1
