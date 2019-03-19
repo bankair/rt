@@ -34,7 +34,7 @@ class Camera
     world_y = half_height - yoffset
     pixel = inverse_transform * Tuple.point(world_x, world_y, -1.0)
     direction = (pixel - origin).normalize
-    return Ray.new(origin, direction)
+    Ray.new(origin, direction)
   end
 
   def transform=(matrix)
