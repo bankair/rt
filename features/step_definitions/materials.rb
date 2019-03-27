@@ -48,3 +48,11 @@ Then("result = color {float}, {float}, {float}") do |float, float2, float3|
   expect(@result.green).to be_within(0.001).of(float2)
   expect(@result.blue).to be_within(0.001).of(float3)
 end
+
+Given("in_shadow ← true") do
+  @in_shadow = true
+end
+
+When("result ← lighting m, light, position, eyev, normalv, in_shadow") do
+  @result = @m.lighting(@light, @position, @eyev, @normalv, @in_shadow)
+end

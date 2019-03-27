@@ -31,12 +31,12 @@ class Material
       shininess == other.shininess
   end
 
-  def lighting(light, point, eyev, normalv)
+  def lighting(light, point, eyev, normalv, in_shadow = false)
     effective_color = color * light.intensity
     lightv = (light.position - point).normalize
     ambient_color = effective_color * ambient
     light_dot_normal = lightv.dot(normalv)
-    if light_dot_normal < 0
+    if in_shadow || light_dot_normal < 0
       diffuse_color = Color::BLACK
       specular_color = Color::BLACK
     else
