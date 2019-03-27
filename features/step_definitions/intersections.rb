@@ -79,3 +79,15 @@ end
 Then("comps.inside = true") do
   expect(@comps.inside).to be(true)
 end
+
+Given("shape ← sphere  with:") do |table|
+  @shape = build_sphere_from(table)
+end
+
+Then("comps.over_point.z < -EPSILON div {int}") do |int|
+  expect(@comps.over_point.z < - epsilon / int).to be_truthy
+end
+
+Then("comps.point.z > comps.over_point.z") do
+  expect(@comps.point.z > @comps.over_point.z).to be_truthy
+end

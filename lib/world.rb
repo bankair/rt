@@ -25,7 +25,8 @@ class World
   end
 
   def shade_hit(comps)
-    comps.object.material.lighting(light, comps.point, comps.eyev, comps.normalv)
+    shadowed = is_shadowed(comps.over_point)
+    comps.object.material.lighting(light, comps.point, comps.eyev, comps.normalv, shadowed)
   end
 
   def color_at(ray)
@@ -34,5 +35,15 @@ class World
     return Color::BLACK unless hit
     comps = hit.prepare_computations(ray)
     shade_hit(comps)
+  end
+
+  def is_shadowed(point)
+    v = light.position - point
+    distance = v.magnitude
+    direction = v.normalize
+    r = Ray.new(point, direction)
+    intersections = intersect(r)
+    h = intersections.hit
+    h && h.t < distance ? true : false
   end
 end

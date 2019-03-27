@@ -1,4 +1,5 @@
 class Intersection
+  EPSILON = 0.0001
   attr_reader :t, :object
 
   def initialize(t, object)
@@ -7,7 +8,7 @@ class Intersection
   end
 
   class Comps
-    attr_reader :t, :object, :point, :eyev, :normalv, :inside
+    attr_reader :t, :object, :point, :eyev, :normalv, :inside, :over_point
 
     def initialize(intersection, ray)
       @t = intersection.t
@@ -20,6 +21,7 @@ class Intersection
         @inside = true
         @normalv = -@normalv
       end
+      @over_point = @point + @normalv * EPSILON
     end
   end
 
