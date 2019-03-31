@@ -41,7 +41,7 @@ class Scene
   )
   LEFT_SPHERE = Sphere.new(
     transform: Transformation.translation(-1.5, 0.33, -0.75) * Transformation.scaling(0.33, 0.33, 0.33),
-    material: Material.new(color: Color.new(1, 0.8, 0.1), diffuse: 0.7, specular: 0.3)
+    material: Material.new(pattern: Pattern::Checkers.new(Color::BLACK, Color::WHITE), diffuse: 0.7, specular: 0.3)
   )
 
   World.default.light = Light::Point.new(Tuple.point(-10, 10, -10), Color.new(1, 1, 1))

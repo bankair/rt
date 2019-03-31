@@ -97,3 +97,7 @@ end
 Given("pattern ← ring_pattern white, black") do
   @pattern = Pattern::Ring.new(Color::WHITE, Color::BLACK)
 end
+
+Given("pattern ← checkers_pattern white, black") do
+  @pattern = Pattern::Checkers.new(Color::WHITE, Color::BLACK)
+end
