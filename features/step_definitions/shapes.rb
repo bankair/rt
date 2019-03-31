@@ -6,6 +6,12 @@ class TestShape < Shape
   def local_intersect(ray)
     @saved_ray = ray
   end
+
+  def local_normal_at(p)
+    Tuple.vector(p.x, p.y, p.z)
+  end
+
+  quacks_like_a! Shape::Specialization
 end
 
 Given("s ← test_shape") do

@@ -4,6 +4,10 @@ Given("s ← sphere") do
   @s = Sphere.new
 end
 
+Then("s is a shape") do
+  expect(@s).to be_a(Shape)
+end
+
 When("xs ← intersect s, r") do
   @xs = @s.intersect(@r)
 end
@@ -22,18 +26,6 @@ end
 
 Then("s.transform = identity_matrix") do
   expect(@s.transform).to eq(RTMatrix::IDENTITY)
-end
-
-Given("t ← translation {int}, {int}, {int}") do |int, int2, int3|
-  @t = Transformation.translation(int, int2, int3)
-end
-
-When("set_transform s, t") do
-  @s.transform = @t
-end
-
-Then("s.transform = t") do
-  expect(@s.transform).to eq @t
 end
 
 When("set_transform s, scaling {int}, {int}, {int}") do |int, int2, int3|

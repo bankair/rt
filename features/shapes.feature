@@ -36,3 +36,16 @@ Feature: Shape
     And xs ← intersect s, r
     Then s.saved_ray.origin = point -5.0, 0.0, -5.0
     And s.saved_ray.direction = vector 0.0, 0.0, 1.0
+
+  Scenario: Computing the normal on a translated shape
+    Given s ← test_shape
+    When set_transform s, translation 0.0, 1.0, 0.0
+    And n ← normal_at s, point 0.0, 1.70711, -0.70711
+    Then n = vector 0.0, 0.70711, -0.70711
+
+  Scenario: Computing the normal on a transformed shape
+    Given s ← test_shape
+    And m ← scaling 1.0, 0.5, 1.0 * rotation_z π div 5
+    When set_transform s, m
+    And n ← normal_at s, point 0.0, 0.70711, -0.70711
+    Then n = vector 0.0, 0.97014, -0.24254

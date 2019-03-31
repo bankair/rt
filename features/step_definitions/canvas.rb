@@ -4,10 +4,6 @@ Given("c ← canvas {int}, {int}") do |int, int2|
   @c = Canvas.new(int, int2)
 end
 
-Given("canvas ← canvas {int}, {int}") do |int, int2|
-  @c = Canvas.new(int, int2)
-end
-
 Then("c.width = {int}") do |int|
   expect(@c.width).to eq(int)
 end
