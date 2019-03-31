@@ -125,3 +125,15 @@ end
 Given("i ← intersection {int}, s{int}") do |int, int2|
   @i = Intersection.new(int, @s[int2])
 end
+
+Given("shape.material.ambient ← {float}") do |float|
+  @shape.material.ambient = float
+end
+
+When("color ← reflected_color w, comps") do
+  @color = @w.reflected_color(@comps)
+end
+
+Then("color = color {float}, {float}, {float}") do |float, float2, float3|
+  expect(@color).to eq(Color.new(float, float2, float3))
+end

@@ -53,4 +53,8 @@ class World
     h = intersections.hit
     h && h.t < distance ? true : false
   end
+
+  def reflected_color(comps)
+    return Color::BLACK if comps.object.material.reflective.zero?
+  end
 end

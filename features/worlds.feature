@@ -92,3 +92,12 @@ Feature: World
     When comps ← prepare_computations i, r
     And c ← shade_hit w, comps
     Then c = color 0.1, 0.1, 0.1
+
+  Scenario: The reflected color for a nonreflective material
+    Given r ← ray point 0.0, 0.0, 0.0, vector 0.0, 0.0, 1.0
+    And shape ← the second object in w
+    And shape.material.ambient ← 1.0
+    And i ← intersection 1.0, shape
+    When comps ← prepare_computations i, r
+    And color ← reflected_color w, comps
+    Then color = color 0.0, 0.0, 0.0
