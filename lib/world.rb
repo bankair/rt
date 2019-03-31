@@ -24,9 +24,11 @@ class World
     result
   end
 
-  def shade_hit(comps)
+  REFLECTION_ITERATIONS = 4
+
+  def shade_hit(comps, remaining = REFLECTION_ITERATIONS)
     shadowed = is_shadowed(comps.over_point)
-    comps.object.material.lighting(
+    surface = comps.object.material.lighting(
       comps.object,
       light,
       comps.point,
@@ -34,9 +36,11 @@ class World
       comps.normalv,
       shadowed
     )
+    reflected = reflected_color(comps, remaining)
+    surface + reflected
   end
 
-  def color_at(ray)
+  def color_at(ray, remaining = REFLECTION_ITERATIONS)
     intersections = intersect(ray)
     hit = intersections.hit
     return Color::BLACK unless hit
@@ -54,7 +58,10 @@ class World
     h && h.t < distance ? true : false
   end
 
-  def reflected_color(comps)
-    return Color::BLACK if comps.object.material.reflective.zero?
+  def reflected_color(comps, remaining = REFLECTION_ITERATIONS)
+    return Color::BLACK if comps.object.material.reflective.zero? || remaining < 1
+    reflect_ray = Ray.new(comps.over_point, comps.reflectv)
+    color = color_at(reflect_ray, remaining - 1)
+    color * comps.object.material.reflective
   end
 end

@@ -4,8 +4,11 @@ module Helpers
   end
 
   def build_sphere_from(table)
-    sphere = Sphere.new
-    material = sphere.material
+    build_from(Sphere.new, table)
+  end
+
+  def build_from(shape, table)
+    material = shape.material
     table.raw.each do |key, value|
       case key
       when 'material.color'
@@ -14,15 +17,17 @@ module Helpers
         material.diffuse = value.to_f
       when 'material.specular'
         material.specular = value.to_f
+      when 'material.reflective'
+        material.reflective = value.to_f
       when 'transform'
         method, *args = value.split(/,? /)
         args.map!(&:to_f)
-        sphere.transform = Transformation.send(method, *args)
+        shape.transform = Transformation.send(method, *args)
       else
-        raise 'Unmanaged use case'
+        raise "Unmanaged use case: #{key} => #{value}"
       end
     end
-    sphere
+    shape
   end
 end
 

@@ -65,8 +65,13 @@ class Tuple
     Math.sqrt(x**2 + y**2 + z**2)
   end
 
+  module Vector
+    NULL = Tuple.vector(0, 0, 0).freeze
+  end
+
   def normalize
     m = magnitude
+    return Vector::NULL if m.zero?
     self.class.new(x / m, y / m, z / m, w)
   end
 

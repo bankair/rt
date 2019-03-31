@@ -101,3 +101,51 @@ Feature: World
     When comps ← prepare_computations i, r
     And color ← reflected_color w, comps
     Then color = color 0.0, 0.0, 0.0
+
+  Scenario: The reflected color for a reflective material
+    Given shape ← plane with:
+      | material.reflective | 0.5 |
+      | transform | translation 0, -1, 0 |
+    And shape is added to w
+    And r ← ray point 0.0, 0.0, -3.0, vector 0.0, -0.70711, 0.70711
+    And i ← intersection √2, shape
+    When comps ← prepare_computations i, r
+    And color ← reflected_color w, comps
+    Then color = color 0.19032, 0.2379, 0.14274
+
+  Scenario: shade_hit  with a reflective material
+    Given shape ← plane with:
+      | material.reflective | 0.5 |
+      | transform | translation 0, -1, 0 |
+    And shape is added to w
+    And r ← ray point 0.0, 0.0, -3.0, vector 0.0, -0.70711, 0.70711
+    And i ← intersection √2, shape
+    When comps ← prepare_computations i, r
+    And color ← shade_hit w, comps
+    Then color = color 0.87677, 0.92436, 0.82918
+
+  Scenario: color_at  with mutually reflective surfaces
+    Given w ← world
+    And w.light ← point_light point 0, 0, 0, color 1, 1, 1
+    And lower ← plane  with:
+      | material.reflective | 1 |
+      | transform | translation 0, -1, 0 |
+    And lower is added to w
+    And upper ← plane  with:
+      | material.reflective | 1 |
+      | transform | translation 0, 1, 0 |
+    And upper is added to w
+    And r ← ray point 0, 0, 0, vector 0, 1, 0
+    Then color_at w, r should terminate successfully
+
+  Scenario: The reflected color at the maximum recursive depth
+    Given w ← default_world
+    And shape ← plane with:
+      | material.reflective | 0.5 |
+      | transform | translation 0, -1, 0 |
+    And shape is added to w
+    And r ← ray point 0.0, 0.0, -3.0, vector 0.0, -0.70711, 0.70711
+    And i ← intersection √2, shape
+    When comps ← prepare_computations i, r
+    And color ← reflected_color w, comps, 0
+    Then color = color 0.0, 0.0, 0.0

@@ -137,3 +137,40 @@ end
 Then("color = color {float}, {float}, {float}") do |float, float2, float3|
   expect(@color).to eq(Color.new(float, float2, float3))
 end
+
+Given("shape ← plane with:") do |table|
+  @shape = build_from(Plane.new, table)
+end
+
+Given("shape is added to w") do
+  # NOOP
+end
+
+When("color ← shade_hit w, comps") do
+  @color = @w.shade_hit(@comps)
+end
+
+Given("lower ← plane  with:") do |table|
+  @lower = Plane.new
+end
+
+Given("lower is added to w") do
+  @w.objects << @lower
+end
+
+Given("upper ← plane  with:") do |table|
+  @upper = Plane.new
+end
+
+Given("upper is added to w") do
+  @w.objects << @upper
+end
+
+Then("color_at w, r should terminate successfully") do
+  expect(@w.color_at(@r)).to be_a(Color)
+  expect(@w.color_at(@r)).to be_valid
+end
+
+When("color ← reflected_color w, comps, {int}") do |int|
+  @color = @w.reflected_color(@comps, int)
+end

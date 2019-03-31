@@ -16,7 +16,13 @@ class Color
 
   def ==(other)
     return false unless other.is_a?(self.class)
-    red == other.red && green == other.green && blue == other.blue
+    (red - other.red).abs < Intersection::EPSILON &&
+      (green - other.green).abs < Intersection::EPSILON &&
+      (blue - other.blue).abs < Intersection::EPSILON
+  end
+
+  def valid?
+    !(red.nan? || green.nan? || blue.nan?)
   end
 
   def +(others)
