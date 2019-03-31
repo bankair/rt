@@ -15,3 +15,5 @@ end
 gem "flamegraph", "~> 0.9.5", :group => [:development]
 
 gem "stackprof", "~> 0.2.12", :group => [:development]
+
+gem "duck_enforcer", "~> 1.0"
