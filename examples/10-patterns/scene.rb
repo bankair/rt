@@ -8,7 +8,7 @@ require 'pattern'
 
 class Scene
   # Floor and walls:
-  FLOOR_MATERIAL = Material.new(pattern: Pattern::Stripe.new(Color::RED, Color::GREEN), specular: 0).freeze
+  FLOOR_MATERIAL = Material.new(pattern: Pattern::Ring.new(Color::WHITE, Color::BLACK), specular: 0).freeze
   FLOOR = Plane.new(material: FLOOR_MATERIAL)
   WALL_MATERIAL = Material.new(pattern: Pattern::Gradient.new(Color::GREEN, Color::BLUE), specular: 0).freeze
   WALL = Plane.new(
@@ -33,7 +33,11 @@ class Scene
   )
   RIGHT_SPHERE = Sphere.new(
     transform: Transformation.translation(1.5, 0.5, -0.5) * Transformation.scaling(0.5, 0.5, 0.5),
-    material: Material.new(color: Color.new(0.5, 1, 0.1), diffuse: 0.7, specular: 0.3)
+    material: Material.new(
+      color: Color.new(0.5, 1, 0.1),
+      diffuse: 0.7,
+      specular: 0.3,
+    )
   )
   LEFT_SPHERE = Sphere.new(
     transform: Transformation.translation(-1.5, 0.33, -0.75) * Transformation.scaling(0.33, 0.33, 0.33),

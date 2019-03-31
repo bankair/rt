@@ -93,3 +93,7 @@ Then("pattern_at pattern, point {float}, {float}, {float} = color {float}, {floa
     Color.new(float4, float5, float6)
   )
 end
+
+Given("pattern ← ring_pattern white, black") do
+  @pattern = Pattern::Ring.new(Color::WHITE, Color::BLACK)
+end

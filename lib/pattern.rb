@@ -47,4 +47,18 @@ class Pattern
       a + distance * fraction
     end
   end
+
+  class Ring < Pattern
+    attr_reader :a, :b
+
+    def initialize(a, b, **args)
+      super(**args)
+      @a = a
+      @b = b
+    end
+
+    def pattern_at(point)
+      (Math.sqrt(point.x ** 2 + point.z ** 2).floor % 2).zero? ? a : b
+    end
+  end
 end
