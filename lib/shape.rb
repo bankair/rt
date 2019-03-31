@@ -12,9 +12,14 @@ class Shape
 
   attr_accessor :transform, :material
 
-  def initialize(transform: RTMatrix::IDENTITY, material: Material.new)
+  def initialize(
+    transform: RTMatrix::IDENTITY,
+    material: Material.new,
+    world: World.default
+  )
     @transform = transform
     @material = material
+    world.objects << self
   end
 
   def intersect(ray)

@@ -12,13 +12,11 @@ class Sphere < Shape
   def initialize(
     position: Tuple::Point::ORIGIN,
     radius: 1,
-    world: World.default,
     **args
   )
     super(**args)
     @position = position
     @radius = radius.to_f
-    world.objects << self
   end
 
   def local_intersect(ray)
