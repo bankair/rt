@@ -1,24 +1,34 @@
 require 'transformation'
+require 'duck_enforcer'
 
 class Pattern
-  class Stripe
-    attr_reader :a, :b
-    include Transformation::Ability
+  class Specialization < DuckEnforcer
+    implement :pattern_at
+  end
 
-    def initialize(a, b, transform: RTMatrix::IDENTITY)
+  include Transformation::Ability
+
+  def initialize(transform: RTMatrix::IDENTITY)
+    self.transform = transform
+  end
+
+  def pattern_at_shape(shape, point)
+    object_point = shape.inverse_transform * point
+    pattern_point = inverse_transform * object_point
+    pattern_at(pattern_point)
+  end
+
+  class Stripe < Pattern
+    attr_reader :a, :b
+
+    def initialize(a, b, **args)
+      super(**args)
       @a = a
       @b = b
-      self.transform = transform
     end
 
-    def stripe_at(point)
+    def pattern_at(point)
       (point.x.floor % 2).zero? ? a : b
-    end
-
-    def stripe_at_object(object, world_point)
-      object_point = object.inverse_transform * world_point
-      pattern_point = inverse_transform * object_point
-      return stripe_at(pattern_point)
     end
   end
 end

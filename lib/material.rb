@@ -34,7 +34,7 @@ class Material
   end
 
   def lighting(object, light, point, eyev, normalv, in_shadow)
-    local_color = pattern ? pattern.stripe_at_object(object, point) : color
+    local_color = pattern ? pattern.pattern_at_shape(object, point) : color
     effective_color = local_color * light.intensity
     lightv = (light.position - point).normalize
     ambient_color = effective_color * ambient

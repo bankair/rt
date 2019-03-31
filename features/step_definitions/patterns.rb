@@ -20,12 +20,12 @@ Then("pattern.b = black") do
   expect(@pattern.b).to eq(@black)
 end
 
-Then("stripe_at pattern, point {float}, {float}, {float} = white") do |float, float2, float3|
-  expect(@pattern.stripe_at(Tuple.point(float, float2, float3))).to eq(@white)
+Then("pattern_at pattern, point {float}, {float}, {float} = white") do |float, float2, float3|
+  expect(@pattern.pattern_at(Tuple.point(float, float2, float3))).to eq(@white)
 end
 
-Then("stripe_at pattern, point {float}, {float}, {float} = black") do |float, float2, float3|
-  expect(@pattern.stripe_at(Tuple.point(float, float2, float3))).to eq(@black)
+Then("pattern_at pattern, point {float}, {float}, {float} = black") do |float, float2, float3|
+  expect(@pattern.pattern_at(Tuple.point(float, float2, float3))).to eq(@black)
 end
 
 Given("object ← sphere") do
@@ -36,8 +36,8 @@ Given("set_transform object, scaling {float}, {float}, {float}") do |float, floa
   @object.transform = Transformation.scaling(float, float2, float3)
 end
 
-When("c ← stripe_at_object pattern, object, point {float}, {float}, {float}") do |float, float2, float3|
-  @c = @pattern.stripe_at_object(@object, Tuple.point(float, float2, float3))
+When("c ← pattern_at_object pattern, object, point {float}, {float}, {float}") do |float, float2, float3|
+  @c = @pattern.pattern_at_shape(@object, Tuple.point(float, float2, float3))
 end
 
 Then("c = white") do
@@ -52,3 +52,30 @@ Given("set_pattern_transform pattern, translation {float}, {float}, {float}") do
   @pattern.transform = Transformation.translation(float, float2, float3)
 end
 
+class TestPattern < Pattern
+  def pattern_at(point)
+    Color.new(point.x, point.y, point.z)
+  end
+
+  quacks_like_a! Pattern::Specialization
+end
+
+Given("pattern ← test_pattern") do
+  @pattern = TestPattern.new
+end
+
+Then("pattern.transform = identity_matrix") do
+  expect(@pattern.transform).to eq(RTMatrix::IDENTITY)
+end
+
+Then("pattern.transform = translation {int}, {int}, {int}") do |int, int2, int3|
+  expect(@pattern.transform).to eq(Transformation.translation(int, int2, int3))
+end
+
+Given("set_transform shape, scaling {float}, {float}, {float}") do |float, float2, float3|
+  @shape.transform = Transformation.scaling(float, float2, float3)
+end
+
+When("c ← pattern_at_shape pattern, shape, point {float}, {float}, {float}") do |float, float2, float3|
+  @c = @pattern.pattern_at_shape(@shape, Tuple.point(float, float2, float3))
+end
