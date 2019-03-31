@@ -91,3 +91,15 @@ end
 Then("comps.point.z > comps.over_point.z") do
   expect(@comps.point.z > @comps.over_point.z).to be_truthy
 end
+
+Given("shape ← plane") do
+  @shape = Plane.new
+end
+
+Given("i ← intersection √{int}, shape") do |int|
+  @i = Intersection.new(Math.sqrt(int), @shape)
+end
+
+Then("comps.reflectv = vector {float}, {float}, {float}") do |float, float2, float3|
+  expect(@comps.reflectv).to eq(Tuple.vector(float, float2, float3))
+end
