@@ -21,8 +21,7 @@ class Sphere < Shape
     world.objects << self
   end
 
-  def intersect(ray)
-    ray = ray.transform(transform.inverse)
+  def local_intersect(ray)
     sphere_to_ray = ray.origin - Tuple::Point::ORIGIN
     a = ray.direction.dot(ray.direction)
     b = 2.0 * ray.direction.dot(sphere_to_ray)

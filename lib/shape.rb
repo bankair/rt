@@ -8,4 +8,8 @@ class Shape
     @transform = transform
     @material = material
   end
+
+  def intersect(ray)
+    local_intersect(ray.transform(transform.inverse))
+  end
 end
