@@ -7,7 +7,7 @@ class Material
   DEFAULT_SPECULAR = 0.9
   DEFAULT_SHININESS = 200.0
 
-  attr_accessor :ambient, :color, :diffuse, :specular, :shininess, :pattern
+  attr_accessor :ambient, :color, :diffuse, :specular, :shininess, :pattern, :reflective
 
   def initialize(
     color: DEFAULT_COLOR,
@@ -15,7 +15,8 @@ class Material
     diffuse: DEFAULT_DIFFUSE,
     specular: DEFAULT_SPECULAR,
     shininess: DEFAULT_SHININESS,
-    pattern: nil
+    pattern: nil,
+    reflective: 0.0
   )
     @color = color
     @ambient = ambient
@@ -23,6 +24,7 @@ class Material
     @specular = specular
     @shininess = shininess
     @pattern = pattern
+    @reflective = reflective
   end
 
   def ==(other)

@@ -87,3 +87,7 @@ end
 Then("c{int} = color {float}, {float}, {float}") do |int, float, float2, float3|
   expect(@c[int]).to eq(Color.new(float, float2, float3))
 end
+
+Then("m.reflective = {float}") do |float|
+  expect(@m.reflective).to eq(float)
+end
