@@ -26,7 +26,14 @@ class World
 
   def shade_hit(comps)
     shadowed = is_shadowed(comps.over_point)
-    comps.object.material.lighting(light, comps.point, comps.eyev, comps.normalv, shadowed)
+    comps.object.material.lighting(
+      comps.object,
+      light,
+      comps.point,
+      comps.eyev,
+      comps.normalv,
+      shadowed
+    )
   end
 
   def color_at(ray)

@@ -1,6 +1,27 @@
 require 'rtmatrix'
 
 class Transformation
+  # Utility module to memoize transform and inverse
+  module Ability
+    def transform
+      @transform_value
+    end
+
+    def transform=(new_transform)
+      @transform_value = new_transform
+      @inverse_transform_value = new_transform.inverse
+      @transposed_inverse_transform_value = @inverse_transform_value.transpose
+    end
+
+    def inverse_transform
+      @inverse_transform_value
+    end
+
+    def transposed_inverse_transform
+      @transposed_inverse_transform_value
+    end
+  end
+
   class << self
     def view_transform(from, to, up)
       forward = (to - from).normalize

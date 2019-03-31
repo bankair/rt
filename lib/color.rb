@@ -9,6 +9,9 @@ class Color
   end
 
   BLACK = Color.new(0, 0, 0).freeze
+  RED = Color.new(1, 0, 0).freeze
+  GREEN = Color.new(0, 1, 0).freeze
+  BLUE = Color.new(0, 0, 1).freeze
 
   def ==(other)
     return false unless other.is_a?(self.class)

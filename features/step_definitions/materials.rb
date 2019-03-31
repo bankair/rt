@@ -40,7 +40,7 @@ Given("light ← point_light point {int}, {int}, {int}, color {int}, {int}, {int
 end
 
 When("result ← lighting m, light, position, eyev, normalv") do
-  @result = @m.lighting(@light, @position, @eyev, @normalv)
+  @result = @m.lighting(Sphere.new, @light, @position, @eyev, @normalv, false)
 end
 
 Then("result = color {float}, {float}, {float}") do |float, float2, float3|
@@ -54,5 +54,36 @@ Given("in_shadow ← true") do
 end
 
 When("result ← lighting m, light, position, eyev, normalv, in_shadow") do
-  @result = @m.lighting(@light, @position, @eyev, @normalv, @in_shadow)
+  @result = @m.lighting(Sphere.new, @light, @position, @eyev, @normalv, @in_shadow)
+end
+
+Given("m.pattern ← stripe_pattern color {int}, {int}, {int}, color {int}, {int}, {int}") do |int, int2, int3, int4, int5, int6|
+  @m.pattern = Pattern::Stripe.new(
+    Color.new(int, int2, int3),
+    Color.new(int4, int5, int6)
+  )
+end
+
+Given("m.ambient ← {float}") do |float|
+  @m.ambient = float
+end
+
+Given("m.diffuse ← {float}") do |float|
+  @m.diffuse = float
+end
+
+Given("m.specular ← {float}") do |float|
+  @m.specular = float
+end
+
+Given("light ← point_light point {float}, {float}, {float}, color {float}, {float}, {float}") do |float, float2, float3, float4, float5, float6|
+  @light = Light::Point.new(Tuple.point(float, float2, float3), Color.new(float4, float5, float6))
+end
+
+When("c{int} ← lighting m, light, point {float}, {float}, {float}, eyev, normalv, false") do |int, float, float2, float3|
+  (@c ||= {})[int] = @m.lighting(Sphere.new, @light, Tuple.point(float, float2, float3), @eyev, @normalv, false)
+end
+
+Then("c{int} = color {float}, {float}, {float}") do |int, float, float2, float3|
+  expect(@c[int]).to eq(Color.new(float, float2, float3))
 end

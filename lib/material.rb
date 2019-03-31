@@ -7,20 +7,22 @@ class Material
   DEFAULT_SPECULAR = 0.9
   DEFAULT_SHININESS = 200.0
 
-  attr_accessor :ambient, :color, :diffuse, :specular, :shininess
+  attr_accessor :ambient, :color, :diffuse, :specular, :shininess, :pattern
 
   def initialize(
     color: DEFAULT_COLOR,
     ambient: DEFAULT_AMBIENT,
     diffuse: DEFAULT_DIFFUSE,
     specular: DEFAULT_SPECULAR,
-    shininess: DEFAULT_SHININESS
+    shininess: DEFAULT_SHININESS,
+    pattern: nil
   )
     @color = color
     @ambient = ambient
     @diffuse = diffuse
     @specular = specular
     @shininess = shininess
+    @pattern = pattern
   end
 
   def ==(other)
@@ -31,8 +33,9 @@ class Material
       shininess == other.shininess
   end
 
-  def lighting(light, point, eyev, normalv, in_shadow = false)
-    effective_color = color * light.intensity
+  def lighting(object, light, point, eyev, normalv, in_shadow)
+    local_color = pattern ? pattern.stripe_at_object(object, point) : color
+    effective_color = local_color * light.intensity
     lightv = (light.position - point).normalize
     ambient_color = effective_color * ambient
     light_dot_normal = lightv.dot(normalv)
