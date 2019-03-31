@@ -67,5 +67,4 @@ class Scene
   end
 end
 
-require 'flamegraph'
-Flamegraph.generate('flamegraph_scene_rendering.html') { Scene.render! }
+Scene.render!
