@@ -1,24 +1,23 @@
+require 'shape'
 require 'intersection'
 require 'tuple'
 require 'rtmatrix'
 require 'material'
 require 'world'
 
-class Sphere
+class Sphere < Shape
   attr_reader :position, :radius
-  attr_accessor :transform, :material
+  attr_accessor :material
 
   def initialize(
     position: Tuple::Point::ORIGIN,
     radius: 1,
-    transform: RTMatrix::IDENTITY,
-    material: Material.new,
-    world: World.default
+    world: World.default,
+    **args
   )
+    super(**args)
     @position = position
     @radius = radius.to_f
-    @transform = transform
-    @material = material
     world.objects << self
   end
 
