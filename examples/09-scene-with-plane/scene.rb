@@ -8,7 +8,13 @@ require 'camera'
 class Scene
   # Floor and walls:
   FLOOR_MATERIAL = Material.new(color: Color.new(1, 0.9, 0.9), specular: 0).freeze
-  FLOOR = Plane.new
+  FLOOR = Plane.new(material: FLOOR_MATERIAL)
+  WALL_MATERIAL = Material.new(color: Color.new(0.7, 0.3, 0.3), specular: 0).freeze
+  WALL = Plane.new(
+    material: WALL_MATERIAL,
+    transform:  Transformation.translation(0, 0, 2) * Transformation.rotation_x(Math::PI / 2)
+
+  )
 
   # Spheres:
   MIDDLE_SPHERE = Sphere.new(
