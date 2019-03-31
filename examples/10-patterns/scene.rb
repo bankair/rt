@@ -7,12 +7,10 @@ require 'camera'
 require 'pattern'
 
 class Scene
-  PATTERN = Pattern::Stripe.new(Color::RED, Color::GREEN)
-
   # Floor and walls:
-  FLOOR_MATERIAL = Material.new(pattern: PATTERN, specular: 0).freeze
+  FLOOR_MATERIAL = Material.new(pattern: Pattern::Stripe.new(Color::RED, Color::GREEN), specular: 0).freeze
   FLOOR = Plane.new(material: FLOOR_MATERIAL)
-  WALL_MATERIAL = Material.new(pattern: PATTERN, specular: 0).freeze
+  WALL_MATERIAL = Material.new(pattern: Pattern::Gradient.new(Color::GREEN, Color::BLUE), specular: 0).freeze
   WALL = Plane.new(
     material: WALL_MATERIAL,
     transform:  Transformation.translation(0, 0, 2) * Transformation.rotation_x(Math::PI / 2)

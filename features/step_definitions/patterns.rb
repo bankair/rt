@@ -79,3 +79,17 @@ end
 When("c ← pattern_at_shape pattern, shape, point {float}, {float}, {float}") do |float, float2, float3|
   @c = @pattern.pattern_at_shape(@shape, Tuple.point(float, float2, float3))
 end
+
+Given("pattern ← gradient_pattern white, black") do
+  @pattern = Pattern::Gradient.new(Color::WHITE, Color::BLACK)
+end
+
+Then("pattern_at pattern, point {int}, {int}, {int} = white") do |int, int2, int3|
+  expect(@pattern.pattern_at(Tuple.point(int, int2, int3))).to eq(Color::WHITE)
+end
+
+Then("pattern_at pattern, point {float}, {float}, {float} = color {float}, {float}, {float}") do |float, float2, float3, float4, float5, float6|
+  expect(@pattern.pattern_at(Tuple.point(float, float2, float3))).to eq(
+    Color.new(float4, float5, float6)
+  )
+end

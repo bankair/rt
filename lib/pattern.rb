@@ -31,4 +31,20 @@ class Pattern
       (point.x.floor % 2).zero? ? a : b
     end
   end
+
+  class Gradient < Pattern
+    attr_reader :a, :b, :distance
+
+    def initialize(a, b, **args)
+      super(**args)
+      @a = a
+      @b = b
+      @distance = b - a
+    end
+
+    def pattern_at(point)
+      fraction = point.x - point.x.floor
+      a + distance * fraction
+    end
+  end
 end
